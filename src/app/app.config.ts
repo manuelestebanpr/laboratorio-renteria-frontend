@@ -4,6 +4,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth/auth.interceptor';
+import { authInitializerProvider } from './core/auth/auth.service';
 import { TranslocoHttpLoader } from './core/i18n/transloco-loader';
 import { environment } from '../environments/environment';
 
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
+    authInitializerProvider,
     provideTransloco({
       config: {
         availableLangs: ['es', 'en'],

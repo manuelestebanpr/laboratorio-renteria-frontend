@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { HeaderComponent } from './header.component';
@@ -7,6 +7,7 @@ import { HeaderComponent } from './header.component';
   selector: 'app-patient-layout',
   standalone: true,
   imports: [RouterOutlet, RouterLink, HeaderComponent, TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen bg-neutral-50">
       <app-header></app-header>

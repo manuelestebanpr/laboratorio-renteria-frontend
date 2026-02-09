@@ -1,10 +1,23 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed, APP_INITIALIZER } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError, of } from 'rxjs';
 import { tap, catchError, switchMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse, RefreshResponse, User } from '../../models/auth.model';
+
+// Factory function for APP_INITIALIZER
+export function initializeAuth(authService: AuthService): () => Observable<void> {
+  return () => authService.refresh();
+}
+
+// Provider for APP_INITIALIZER
+export const authInitializerProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: initializeAuth,
+  deps: [AuthService],
+  multi: true,
+};
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -21,11 +34,6 @@ export class AuthService {
   readonly currentUser = computed(() => this._currentUser());
   readonly isAuthenticated = computed(() => !!this._accessToken());
   readonly permissions = computed(() => new Set(this._currentUser()?.permissions ?? []));
-
-  constructor() {
-    // Try to restore session on startup
-    this.refresh().subscribe();
-  }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/v1/auth/login`, credentials)

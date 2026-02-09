@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 type SpinnerSize = 'sm' | 'md' | 'lg';
@@ -7,6 +7,7 @@ type SpinnerSize = 'sm' | 'md' | 'lg';
   selector: 'app-loading-spinner',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (overlay) {
       <div class="fixed inset-0 bg-neutral-900 bg-opacity-50 flex items-center justify-center z-50">

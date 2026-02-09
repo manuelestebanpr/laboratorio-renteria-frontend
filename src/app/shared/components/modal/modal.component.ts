@@ -7,6 +7,7 @@ import {
   ViewChild,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -16,6 +17,7 @@ type ModalSize = 'sm' | 'md' | 'lg';
   selector: 'app-modal',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (open) {
       <div

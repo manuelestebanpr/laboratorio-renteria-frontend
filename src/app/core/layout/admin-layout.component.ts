@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { HeaderComponent } from './header.component';
+import { HasPermissionDirective } from '../../shared/directives/permission.directive';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, HeaderComponent, TranslocoPipe],
+  imports: [RouterOutlet, RouterLink, HeaderComponent, TranslocoPipe, HasPermissionDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen bg-neutral-50">
       <app-header></app-header>
@@ -46,8 +48,8 @@ import { HeaderComponent } from './header.component';
                   {{ 'admin.results' | transloco }}
                 </a>
               </li>
-              <li>
-                <a routerLink="/admin/employees" 
+              <li *appHasPermission="'EMPLOYEES_VIEW'">
+                <a routerLink="/admin/employees"
                    routerLinkActive="bg-primary-50 text-primary-700"
                    class="flex items-center px-4 py-3 text-body rounded-lg hover:bg-neutral-50 transition-colors">
                   <svg class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,8 +58,8 @@ import { HeaderComponent } from './header.component';
                   {{ 'admin.employees' | transloco }}
                 </a>
               </li>
-              <li>
-                <a routerLink="/admin/groups" 
+              <li *appHasPermission="'GROUPS_VIEW'">
+                <a routerLink="/admin/groups"
                    routerLinkActive="bg-primary-50 text-primary-700"
                    class="flex items-center px-4 py-3 text-body rounded-lg hover:bg-neutral-50 transition-colors">
                   <svg class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,8 +68,8 @@ import { HeaderComponent } from './header.component';
                   {{ 'admin.groups' | transloco }}
                 </a>
               </li>
-              <li>
-                <a routerLink="/admin/audit-log" 
+              <li *appHasPermission="'AUDIT_LOG_VIEW'">
+                <a routerLink="/admin/audit-log"
                    routerLinkActive="bg-primary-50 text-primary-700"
                    class="flex items-center px-4 py-3 text-body rounded-lg hover:bg-neutral-50 transition-colors">
                   <svg class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,8 +78,8 @@ import { HeaderComponent } from './header.component';
                   {{ 'admin.auditLog' | transloco }}
                 </a>
               </li>
-              <li>
-                <a routerLink="/admin/settings" 
+              <li *appHasPermission="'SETTINGS_VIEW'">
+                <a routerLink="/admin/settings"
                    routerLinkActive="bg-primary-50 text-primary-700"
                    class="flex items-center px-4 py-3 text-body rounded-lg hover:bg-neutral-50 transition-colors">
                   <svg class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">

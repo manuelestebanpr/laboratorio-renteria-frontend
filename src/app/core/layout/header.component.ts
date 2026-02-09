@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslocoService, TranslocoPipe } from '@jsverse/transloco';
 import { AuthService } from '../auth/auth.service';
@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
   selector: 'app-header',
   standalone: true,
   imports: [RouterLink, TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="bg-white shadow-sm border-b border-neutral-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

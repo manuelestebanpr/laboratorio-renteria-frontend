@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 
@@ -6,6 +6,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
   selector: 'app-patient-list',
   standalone: true,
   imports: [CommonModule, TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="space-y-6">
       <div class="flex justify-between items-center">

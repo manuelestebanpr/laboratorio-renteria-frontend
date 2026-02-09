@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { ButtonComponent } from '../button/button.component';
@@ -9,6 +9,7 @@ type ConfirmType = 'danger' | 'normal';
   selector: 'app-confirm-dialog',
   standalone: true,
   imports: [CommonModule, ModalComponent, ButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-modal
       [open]="open"

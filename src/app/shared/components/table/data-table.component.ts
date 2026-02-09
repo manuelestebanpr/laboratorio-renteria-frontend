@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, TemplateRef, Directive } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, TemplateRef, Directive, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface TableColumn {
@@ -20,6 +20,7 @@ export class TableCellDirective {
   selector: 'app-data-table',
   standalone: true,
   imports: [CommonModule, TableCellDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="overflow-x-auto rounded-card border border-neutral-200">
       <table class="w-full text-left">

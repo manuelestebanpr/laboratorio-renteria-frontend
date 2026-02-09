@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 
@@ -6,6 +6,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule, TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card">
       <h1 class="text-heading font-bold text-neutral-800 mb-6">{{ 'patient.profile' | transloco }}</h1>
