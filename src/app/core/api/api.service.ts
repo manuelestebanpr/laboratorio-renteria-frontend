@@ -30,16 +30,8 @@ export class ApiService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unexpected error occurred';
-    
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Server-side error
-      errorMessage = error.error?.message || `Error ${error.status}: ${error.statusText}`;
-    }
-    
-    return throwError(() => new Error(errorMessage));
+    // Pass through the original HttpErrorResponse so consumers
+    // can inspect status, error body, headers, etc.
+    return throwError(() => error);
   }
 }

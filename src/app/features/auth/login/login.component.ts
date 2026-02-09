@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -32,10 +32,10 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
             <p class="text-body text-neutral-600">{{ 'auth.login' | transloco }}</p>
           </div>
 
-          @if (errorMessage) {
+          @if (errorMessage()) {
             <app-alert 
               type="error" 
-              [message]="errorMessage"
+              [message]="errorMessage()"
               class="mb-6">
             </app-alert>
           }
@@ -70,7 +70,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
               variant="primary"
               size="lg"
               [label]="'auth.login' | transloco"
-              [loading]="isLoading"
+              [loading]="isLoading()"
               class="w-full">
             </app-button>
           </form>
@@ -90,8 +90,8 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  isLoading = false;
-  errorMessage = '';
+  isLoading = signal(false);
+  errorMessage = signal('');
 
   getError(controlName: string): string {
     const control = this.loginForm.get(controlName);
@@ -108,18 +108,18 @@ export class LoginComponent {
       return;
     }
 
-    this.isLoading = true;
-    this.errorMessage = '';
+    this.isLoading.set(true);
+    this.errorMessage.set('');
 
     const { email, password } = this.loginForm.value;
 
     this.authService.login({ email: email!, password: password! }).subscribe({
       next: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
       error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.message || 'auth.loginError';
+        this.isLoading.set(false);
+        this.errorMessage.set(error.error?.message || this.transloco.translate('auth.loginError'));
       },
     });
   }

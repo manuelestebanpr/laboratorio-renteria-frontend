@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -33,7 +33,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
             </p>
           </div>
 
-          @if (isSuccess) {
+          @if (isSuccess()) {
             <app-alert 
               type="success" 
               [message]="'auth.resetRequestSuccess' | transloco"
@@ -41,10 +41,10 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
             </app-alert>
           }
 
-          @if (errorMessage) {
+          @if (errorMessage()) {
             <app-alert 
               type="error" 
-              [message]="errorMessage"
+              [message]="errorMessage()"
               class="mb-6">
             </app-alert>
           }
@@ -64,7 +64,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
               variant="primary"
               size="lg"
               [label]="'auth.resetRequest' | transloco"
-              [loading]="isLoading"
+              [loading]="isLoading()"
               class="w-full">
             </app-button>
 
@@ -87,9 +87,9 @@ export class PasswordResetRequestComponent {
     email: ['', [Validators.required, Validators.email]],
   });
 
-  isLoading = false;
-  isSuccess = false;
-  errorMessage = '';
+  isLoading = signal(false);
+  isSuccess = signal(false);
+  errorMessage = signal('');
 
   getError(controlName: string): string {
     const control = this.form.get(controlName);
@@ -106,13 +106,13 @@ export class PasswordResetRequestComponent {
       return;
     }
 
-    this.isLoading = true;
-    this.errorMessage = '';
+    this.isLoading.set(true);
+    this.errorMessage.set('');
 
     // TODO: Implement password reset request API call
     setTimeout(() => {
-      this.isLoading = false;
-      this.isSuccess = true;
+      this.isLoading.set(false);
+      this.isSuccess.set(true);
     }, 1000);
   }
 }

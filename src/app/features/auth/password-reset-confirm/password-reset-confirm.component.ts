@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -30,7 +30,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
             </h1>
           </div>
 
-          @if (isSuccess) {
+          @if (isSuccess()) {
             <app-alert 
               type="success" 
               [message]="'auth.resetConfirmSuccess' | transloco"
@@ -42,10 +42,10 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
               </a>
             </div>
           } @else {
-            @if (errorMessage) {
+            @if (errorMessage()) {
               <app-alert 
                 type="error" 
-                [message]="errorMessage"
+                [message]="errorMessage()"
                 class="mb-6">
               </app-alert>
             }
@@ -74,7 +74,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
                 variant="primary"
                 size="lg"
                 [label]="'auth.resetConfirm' | transloco"
-                [loading]="isLoading"
+                [loading]="isLoading()"
                 class="w-full">
               </app-button>
             </form>
@@ -94,16 +94,16 @@ export class PasswordResetConfirmComponent {
     confirmPassword: ['', Validators.required],
   });
 
-  isLoading = false;
-  isSuccess = false;
-  errorMessage = '';
+  isLoading = signal(false);
+  isSuccess = signal(false);
+  errorMessage = signal('');
   token = '';
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
       if (!this.token) {
-        this.errorMessage = this.transloco.translate('auth.sessionExpired');
+        this.errorMessage.set(this.transloco.translate('auth.sessionExpired'));
       }
     });
   }
@@ -125,17 +125,17 @@ export class PasswordResetConfirmComponent {
 
     const { newPassword, confirmPassword } = this.form.value;
     if (newPassword !== confirmPassword) {
-      this.errorMessage = this.transloco.translate('auth.passwordsDoNotMatch');
+      this.errorMessage.set(this.transloco.translate('auth.passwordsDoNotMatch'));
       return;
     }
 
-    this.isLoading = true;
-    this.errorMessage = '';
+    this.isLoading.set(true);
+    this.errorMessage.set('');
 
     // TODO: Implement password reset confirm API call
     setTimeout(() => {
-      this.isLoading = false;
-      this.isSuccess = true;
+      this.isLoading.set(false);
+      this.isSuccess.set(true);
     }, 1000);
   }
 }
