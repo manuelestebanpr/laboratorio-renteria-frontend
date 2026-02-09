@@ -1,6 +1,6 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse, HttpEvent, HttpHandlerFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, switchMap, throwError, Observable } from 'rxjs';
+import { catchError, switchMap, throwError, Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 
 let isRefreshing = false;
@@ -29,15 +29,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEv
 };
 
 function handle401Error(
-  req: any, 
-  next: any, 
+  req: any,
+  next: HttpHandlerFn,
   authService: AuthService
 ): Observable<HttpEvent<unknown>> {
   if (!isRefreshing) {
     isRefreshing = true;
-    
+
     return authService.refresh().pipe(
-      switchMap(() => {
+      switchMap((): Observable<HttpEvent<unknown>> => {
         isRefreshing = false;
         const newToken = authService.accessToken();
         if (newToken) {
@@ -49,13 +49,13 @@ function handle401Error(
         }
         return next(req);
       }),
-      catchError((error) => {
+      catchError((error): Observable<HttpEvent<unknown>> => {
         isRefreshing = false;
         authService.logout();
         return throwError(() => error);
       })
     );
   }
-  
+
   return throwError(() => new Error('Token refresh failed'));
 }
