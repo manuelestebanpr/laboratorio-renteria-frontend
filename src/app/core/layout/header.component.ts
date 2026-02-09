@@ -1,12 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { TranslocoService } from '@jsverse/transloco';
+import { TranslocoService, TranslocoPipe } from '@jsverse/transloco';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoPipe],
   template: `
     <header class="bg-white shadow-sm border-b border-neutral-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,7 +50,7 @@ import { AuthService } from '../auth/auth.service';
               <div class="flex items-center space-x-3">
                 <div class="hidden md:block text-right">
                   <p class="text-body font-semibold text-neutral-900">
-                    {{ user()?.firstName }} {{ user()?.lastName }}
+                    {{ user()?.fullName }}
                   </p>
                   <p class="text-sm text-neutral-500">{{ user()?.email }}</p>
                 </div>
@@ -75,7 +75,7 @@ export class HeaderComponent {
   private readonly router = inject(Router);
 
   readonly isAuthenticated = computed(() => this.authService.isAuthenticated());
-  readonly user = computed(() => this.authService.user());
+  readonly user = computed(() => this.authService.currentUser());
   readonly currentLang = computed(() => this.transloco.getActiveLang());
 
   changeLanguage(event: Event): void {
@@ -86,6 +86,7 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
