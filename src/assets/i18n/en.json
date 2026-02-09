@@ -1,0 +1,73 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "auth": {
+    "login": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "loginError": "Email or password is incorrect",
+    "resetRequest": "Request reset",
+    "resetConfirm": "Reset password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "currentPassword": "Current password",
+    "changePassword": "Change password",
+    "sessionExpired": "Your session has expired. Please log in again.",
+    "passwordChanged": "Your password has been changed successfully."
+  },
+  "patient": {
+    "profile": "My Profile",
+    "results": "My Results",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "idType": "ID type",
+    "idNumber": "ID number",
+    "dateOfBirth": "Date of birth",
+    "bloodType": "Blood type",
+    "email": "Email",
+    "phone": "Phone",
+    "noResults": "No results yet.",
+    "downloadPdf": "Download PDF"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "patients": "Patients",
+    "results": "Results",
+    "employees": "Employees",
+    "groups": "Groups",
+    "auditLog": "Audit Log",
+    "settings": "Settings",
+    "createPatient": "Create Patient",
+    "searchPatients": "Search patients...",
+    "totalPatients": "Total patients",
+    "totalResults": "Total results"
+  },
+  "consent": {
+    "privacyNotice": "Privacy Notice",
+    "acceptConsent": "I have read and accept the privacy notice",
+    "consentRequired": "You must accept the privacy notice to continue",
+    "consentUpdated": "The privacy notice has been updated. Please review and accept to continue."
+  },
+  "idTypes": {
+    "CC": "Citizenship ID",
+    "CE": "Foreigner ID",
+    "TI": "Identity Card",
+    "PP": "Passport",
+    "NIT": "Tax ID"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "search": "Buscar",
+    "loading": "Cargando...",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "yes": "Sí",
+    "no": "No",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Correo electrónico no válido",
+    "logout": "Cerrar sesión",
+    "language": "Idioma"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "loginError": "Correo electrónico o contraseña incorrectos",
+    "resetRequest": "Solicitar restablecimiento",
+    "resetConfirm": "Restablecer contraseña",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "currentPassword": "Contraseña actual",
+    "changePassword": "Cambiar contraseña",
+    "sessionExpired": "Su sesión ha expirado. Por favor, inicie sesión nuevamente.",
+    "passwordChanged": "Su contraseña ha sido cambiada exitosamente."
+  },
+  "patient": {
+    "profile": "Mi Perfil",
+    "results": "Mis Resultados",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "idType": "Tipo de documento",
+    "idNumber": "Número de documento",
+    "dateOfBirth": "Fecha de nacimiento",
+    "bloodType": "Tipo de sangre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "noResults": "No tiene resultados aún.",
+    "downloadPdf": "Descargar PDF"
+  },
+  "admin": {
+    "dashboard": "Panel de control",
+    "patients": "Pacientes",
+    "results": "Resultados",
+    "employees": "Empleados",
+    "groups": "Grupos",
+    "auditLog": "Registro de auditoría",
+    "settings": "Configuración",
+    "createPatient": "Crear paciente",
+    "searchPatients": "Buscar pacientes...",
+    "totalPatients": "Total de pacientes",
+    "totalResults": "Total de resultados"
+  },
+  "consent": {
+    "privacyNotice": "Aviso de Privacidad",
+    "acceptConsent": "He leído y acepto el aviso de privacidad",
+    "consentRequired": "Debe aceptar el aviso de privacidad para continuar",
+    "consentUpdated": "El aviso de privacidad ha sido actualizado. Por favor, revíselo y acepte para continuar."
+  },
+  "idTypes": {
+    "CC": "Cédula de Ciudadanía",
+    "CE": "Cédula de Extranjería",
+    "TI": "Tarjeta de Identidad",
+    "PP": "Pasaporte",
+    "NIT": "NIT"
+  }
+}
