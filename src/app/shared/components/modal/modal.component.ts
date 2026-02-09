@@ -10,13 +10,14 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 type ModalSize = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (open) {
@@ -49,7 +50,7 @@ type ModalSize = 'sm' | 'md' | 'lg';
                     type="button"
                     class="text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded p-1"
                     (click)="close()"
-                    [attr.aria-label]="'Cerrar'"
+                    [attr.aria-label]="'common.close' | transloco"
                   >
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path

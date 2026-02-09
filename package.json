@@ -44,29 +44,7 @@
     "postcss": "^8.5.0",
     "prettier": "^3.4.0",
     "tailwindcss": "^4.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.7.0"
-  },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"],
-    "testEnvironment": "jsdom",
-    "transform": {
-      "^.+\\.(ts|js|html)$": [
-        "jest-preset-angular",
-        {
-          "tsconfig": "<rootDir>/tsconfig.spec.json",
-          "stringifyContentPathRegex": "\\.html$"
-        }
-      ]
-    },
-    "moduleFileExtensions": ["ts", "html", "js", "json"],
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!src/**/*.spec.ts",
-      "!src/**/*.d.ts",
-      "!src/main.ts",
-      "!src/app/app.config.ts"
-    ],
-    "coverageDirectory": "coverage"
   }
 }

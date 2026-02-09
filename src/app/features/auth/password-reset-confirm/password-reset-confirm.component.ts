@@ -33,7 +33,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
           @if (isSuccess) {
             <app-alert 
               type="success" 
-              message="Your password has been reset. Please log in with your new password."
+              [message]="'auth.resetConfirmSuccess' | transloco"
               class="mb-6">
             </app-alert>
             <div class="text-center">
@@ -125,7 +125,7 @@ export class PasswordResetConfirmComponent {
 
     const { newPassword, confirmPassword } = this.form.value;
     if (newPassword !== confirmPassword) {
-      this.errorMessage = 'Passwords do not match';
+      this.errorMessage = this.transloco.translate('auth.passwordsDoNotMatch');
       return;
     }
 

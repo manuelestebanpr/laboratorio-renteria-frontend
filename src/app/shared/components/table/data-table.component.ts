@@ -122,7 +122,7 @@ export class DataTableComponent<T extends Record<string, unknown>> {
   @Input() columns: TableColumn[] = [];
   @Input() data: T[] = [];
   @Input() loading = false;
-  @Input() emptyMessage = 'No hay datos disponibles';
+  @Input() emptyMessage = '';
   @Input() sortColumn = '';
   @Input() sortDirection: 'asc' | 'desc' = 'asc';
   @Input() trackByKey = 'id';

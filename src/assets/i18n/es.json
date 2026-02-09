@@ -14,7 +14,13 @@
     "invalidEmail": "Correo electrónico no válido",
     "minLength": "Debe tener al menos {{minLength}} caracteres",
     "logout": "Cerrar sesión",
-    "language": "Idioma"
+    "language": "Idioma",
+    "close": "Cerrar",
+    "closeAlert": "Cerrar alerta",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "showingResults": "Mostrando {{start}} a {{end}} de {{total}} resultados",
+    "noData": "No hay datos disponibles"
   },
   "auth": {
     "login": "Iniciar sesión",
@@ -29,7 +35,12 @@
     "currentPassword": "Contraseña actual",
     "changePassword": "Cambiar contraseña",
     "sessionExpired": "Su sesión ha expirado. Por favor, inicie sesión nuevamente.",
-    "passwordChanged": "Su contraseña ha sido cambiada exitosamente."
+    "passwordChanged": "Su contraseña ha sido cambiada exitosamente.",
+    "forceChangeReason": "Por seguridad, debe cambiar su contraseña antes de continuar.",
+    "resetRequestDescription": "Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña.",
+    "resetRequestSuccess": "Si existe una cuenta con ese correo, se ha enviado un enlace de restablecimiento.",
+    "resetConfirmSuccess": "Su contraseña ha sido restablecida. Por favor, inicie sesión con su nueva contraseña.",
+    "passwordsDoNotMatch": "Las contraseñas no coinciden"
   },
   "patient": {
     "profile": "Mi Perfil",

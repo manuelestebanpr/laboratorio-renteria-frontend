@@ -14,7 +14,13 @@
     "invalidEmail": "Invalid email address",
     "minLength": "Must be at least {{minLength}} characters",
     "logout": "Logout",
-    "language": "Language"
+    "language": "Language",
+    "close": "Close",
+    "closeAlert": "Close alert",
+    "previous": "Previous",
+    "next": "Next",
+    "showingResults": "Showing {{start}} to {{end}} of {{total}} results",
+    "noData": "No data available"
   },
   "auth": {
     "login": "Log in",
@@ -29,7 +35,12 @@
     "currentPassword": "Current password",
     "changePassword": "Change password",
     "sessionExpired": "Your session has expired. Please log in again.",
-    "passwordChanged": "Your password has been changed successfully."
+    "passwordChanged": "Your password has been changed successfully.",
+    "forceChangeReason": "For security reasons, please change your password before continuing.",
+    "resetRequestDescription": "Enter your email and we'll send you a link to reset your password.",
+    "resetRequestSuccess": "If an account exists with this email, a reset link has been sent.",
+    "resetConfirmSuccess": "Your password has been reset. Please log in with your new password.",
+    "passwordsDoNotMatch": "Passwords do not match"
   },
   "patient": {
     "profile": "My Profile",

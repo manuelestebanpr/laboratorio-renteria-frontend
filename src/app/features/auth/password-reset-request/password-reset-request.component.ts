@@ -29,14 +29,14 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
               {{ 'auth.resetRequest' | transloco }}
             </h1>
             <p class="text-body text-neutral-600">
-              Enter your email and we'll send you a link to reset your password.
+              {{ 'auth.resetRequestDescription' | transloco }}
             </p>
           </div>
 
           @if (isSuccess) {
             <app-alert 
               type="success" 
-              message="If an account exists with this email, a reset link has been sent."
+              [message]="'auth.resetRequestSuccess' | transloco"
               class="mb-6">
             </app-alert>
           }

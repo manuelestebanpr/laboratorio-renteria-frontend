@@ -29,7 +29,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
               {{ 'auth.changePassword' | transloco }}
             </h1>
             <p class="text-body text-neutral-600">
-              For security reasons, please change your password before continuing.
+              {{ 'auth.forceChangeReason' | transloco }}
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export class ForcePasswordChangeComponent {
 
     const { newPassword, confirmPassword } = this.form.value;
     if (newPassword !== confirmPassword) {
-      this.errorMessage = 'Passwords do not match';
+      this.errorMessage = this.transloco.translate('auth.passwordsDoNotMatch');
       return;
     }
 

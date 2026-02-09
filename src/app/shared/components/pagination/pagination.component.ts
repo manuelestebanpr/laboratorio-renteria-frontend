@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav
@@ -17,27 +18,21 @@ import { CommonModule } from '@angular/common';
           [disabled]="currentPage === 0"
           class="relative inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-body font-medium text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Anterior
+          {{ 'common.previous' | transloco }}
         </button>
         <button
           (click)="nextPage()"
           [disabled]="currentPage >= totalPages - 1"
           class="relative ml-3 inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-body font-medium text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Siguiente
+          {{ 'common.next' | transloco }}
         </button>
       </div>
 
       <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p class="text-body text-neutral-700">
-            Mostrando
-            <span class="font-medium">{{ startItem }}</span>
-            a
-            <span class="font-medium">{{ endItem }}</span>
-            de
-            <span class="font-medium">{{ totalElements }}</span>
-            resultados
+            {{ showingText }}
           </p>
         </div>
 
@@ -51,9 +46,9 @@ import { CommonModule } from '@angular/common';
               (click)="previousPage()"
               [disabled]="currentPage === 0"
               class="relative inline-flex items-center rounded-l-md px-2 py-2 text-neutral-400 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
-              [attr.aria-label]="'Página anterior'"
+              [attr.aria-label]="'common.previous' | transloco"
             >
-              <span class="sr-only">Anterior</span>
+              <span class="sr-only">{{ 'common.previous' | transloco }}</span>
               <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path
                   fill-rule="evenodd"
@@ -87,9 +82,9 @@ import { CommonModule } from '@angular/common';
               (click)="nextPage()"
               [disabled]="currentPage >= totalPages - 1"
               class="relative inline-flex items-center rounded-r-md px-2 py-2 text-neutral-400 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
-              [attr.aria-label]="'Página siguiente'"
+              [attr.aria-label]="'common.next' | transloco"
             >
-              <span class="sr-only">Siguiente</span>
+              <span class="sr-only">{{ 'common.next' | transloco }}</span>
               <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path
                   fill-rule="evenodd"
@@ -113,6 +108,8 @@ export class PaginationComponent {
 
   @Output() pageChange = new EventEmitter<number>();
 
+  private transloco = inject(TranslocoService);
+
   get startItem(): number {
     return this.currentPage * this.pageSize + 1;
   }
@@ -120,6 +117,14 @@ export class PaginationComponent {
   get endItem(): number {
     const end = (this.currentPage + 1) * this.pageSize;
     return Math.min(end, this.totalElements);
+  }
+
+  get showingText(): string {
+    return this.transloco.translate('common.showingResults', {
+      start: this.startItem,
+      end: this.endItem,
+      total: this.totalElements
+    });
   }
 
   get visiblePages(): number[] {

@@ -6,19 +6,6 @@ import { tap, catchError, switchMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse, RefreshResponse, User } from '../../models/auth.model';
 
-// Factory function for APP_INITIALIZER
-export function initializeAuth(authService: AuthService): () => Observable<void> {
-  return () => authService.refresh();
-}
-
-// Provider for APP_INITIALIZER
-export const authInitializerProvider = {
-  provide: APP_INITIALIZER,
-  useFactory: initializeAuth,
-  deps: [AuthService],
-  multi: true,
-};
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
@@ -122,3 +109,16 @@ export class AuthService {
     }
   }
 }
+
+// Factory function for APP_INITIALIZER - must be after AuthService class
+export function initializeAuth(authService: AuthService): () => Observable<void> {
+  return () => authService.refresh();
+}
+
+// Provider for APP_INITIALIZER
+export const authInitializerProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: initializeAuth,
+  deps: [AuthService],
+  multi: true,
+};
