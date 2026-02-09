@@ -9,16 +9,13 @@ export interface ApiResponse<T> {
 }
 
 /**
- * API error response
+ * API error response - matches backend ApiError record
  */
 export interface ApiErrorResponse {
-  success: false;
-  error: {
-    code: string;
-    message: string;
-    details?: Record<string, string[]>;
-  };
+  error: string;
+  message: string;
   timestamp: string;
+  path: string;
 }
 
 /**

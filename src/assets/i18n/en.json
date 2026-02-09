@@ -12,6 +12,7 @@
     "no": "No",
     "required": "This field is required",
     "invalidEmail": "Invalid email address",
+    "minLength": "Must be at least {{minLength}} characters",
     "logout": "Logout",
     "language": "Language"
   },

@@ -1,3 +1,5 @@
+import { User } from './user.model';
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -15,14 +17,6 @@ export interface RefreshResponse {
   expiresIn: number;
 }
 
-export interface User {
-  id: string;
-  email: string;
-  role: 'PATIENT' | 'EMPLOYEE' | 'ADMIN';
-  permissions: string[];
-  fullName: string;
-}
-
 export interface PasswordChangeRequest {
   currentPassword: string;
   newPassword: string;
@@ -36,3 +30,6 @@ export interface PasswordResetConfirm {
   token: string;
   newPassword: string;
 }
+
+// Re-export User from user.model.ts for backward compatibility
+export { User };

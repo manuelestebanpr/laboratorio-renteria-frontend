@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { AlertComponent } from '../../../shared/components/alert/alert.component';
@@ -19,6 +19,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
     InputComponent,
     AlertComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen flex items-center justify-center bg-neutral-100 px-4">
       <div class="w-full max-w-md">
@@ -80,6 +81,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
 })
 export class PasswordResetRequestComponent {
   private fb = inject(FormBuilder);
+  private transloco = inject(TranslocoService);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -92,8 +94,8 @@ export class PasswordResetRequestComponent {
   getError(controlName: string): string {
     const control = this.form.get(controlName);
     if (control?.touched && control?.errors) {
-      if (control.errors['required']) return 'This field is required';
-      if (control.errors['email']) return 'Invalid email address';
+      if (control.errors['required']) return this.transloco.translate('common.required');
+      if (control.errors['email']) return this.transloco.translate('common.invalidEmail');
     }
     return '';
   }

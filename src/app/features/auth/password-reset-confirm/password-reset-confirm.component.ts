@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { AlertComponent } from '../../../shared/components/alert/alert.component';
@@ -19,6 +19,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
     InputComponent,
     AlertComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen flex items-center justify-center bg-neutral-100 px-4">
       <div class="w-full max-w-md">
@@ -86,6 +87,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
 export class PasswordResetConfirmComponent {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
+  private transloco = inject(TranslocoService);
 
   form = this.fb.group({
     newPassword: ['', [Validators.required, Validators.minLength(8)]],
@@ -101,7 +103,7 @@ export class PasswordResetConfirmComponent {
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
       if (!this.token) {
-        this.errorMessage = 'Invalid or missing reset token';
+        this.errorMessage = this.transloco.translate('auth.sessionExpired');
       }
     });
   }
@@ -109,8 +111,8 @@ export class PasswordResetConfirmComponent {
   getError(controlName: string): string {
     const control = this.form.get(controlName);
     if (control?.touched && control?.errors) {
-      if (control.errors['required']) return 'This field is required';
-      if (control.errors['minlength']) return 'Password must be at least 8 characters';
+      if (control.errors['required']) return this.transloco.translate('common.required');
+      if (control.errors['minlength']) return this.transloco.translate('common.minLength', { minLength: 8 });
     }
     return '';
   }

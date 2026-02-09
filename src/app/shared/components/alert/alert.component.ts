@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 type AlertType = 'success' | 'warning' | 'error' | 'info';
@@ -7,6 +7,7 @@ type AlertType = 'success' | 'warning' | 'error' | 'info';
   selector: 'app-alert',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
       [class]="alertClasses"

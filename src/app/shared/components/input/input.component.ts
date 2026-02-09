@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,6 +13,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="w-full">
       @if (label) {
@@ -26,7 +27,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
       <div class="relative">
         <input
           [id]="id"
-          [type]="type"
+          [type]="currentType"
           [value]="value"
           [placeholder]="placeholder"
           [disabled]="disabled"
@@ -61,7 +62,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
     </div>
   `
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() id = '';
   @Input() label = '';
   @Input() type: 'text' | 'email' | 'password' | 'tel' | 'number' | 'date' = 'text';
@@ -72,12 +73,17 @@ export class InputComponent implements ControlValueAccessor {
 
   value = '';
   showPassword = false;
+  currentType: 'text' | 'email' | 'password' | 'tel' | 'number' | 'date' = 'text';
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(value: string): void {
     this.value = value || '';
+  }
+
+  ngOnInit(): void {
+    this.currentType = this.type;
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -104,6 +110,6 @@ export class InputComponent implements ControlValueAccessor {
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
-    this.type = this.showPassword ? 'text' : 'password';
+    this.currentType = this.showPassword ? 'text' : 'password';
   }
 }

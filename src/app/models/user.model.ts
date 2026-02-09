@@ -5,16 +5,18 @@ export type UserRole = 'PATIENT' | 'EMPLOYEE' | 'ADMIN';
 
 /**
  * User model representing authenticated users
+ * Consolidated from auth.model.ts to single source of truth
  */
 export interface User {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
   role: UserRole;
   permissions: string[];
-  forcePasswordChange: boolean;
-  requiresConsentUpdate: boolean;
+  fullName: string;
+  firstName?: string;
+  lastName?: string;
+  forcePasswordChange?: boolean;
+  requiresConsentUpdate?: boolean;
 }
 
 /**
